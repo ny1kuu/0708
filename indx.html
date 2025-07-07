@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Retro Desktop – Fixed Layout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="desktop">
+
+      <!-- OS 頂端選單列 -->
+      <div class="menubar"></div>
+
+      <!-- 左上：預覽影片/圖片視窗 -->
+      <div class="window window--photo">
+        <div class="title">Preview.mov</div>
+        <img src="https://picsum.photos/seed/sail/300/200" alt="">
+      </div>
+
+     <!-- ① Network Status 視窗 -->
+<div class="window window--config">
+  <div class="title">情報欄</div>
+
+  <p>ISFP 20↑<br>
+    fff×｜混圈×<br>
+    直戳○｜交友○<br>
+    同擔○｜同嫁△(拒過多專屬發言)</p>
+
+  <!-- ▶ / ⏸ 按鈕 + 其它裝飾 -->
+  <div class="btn-row">
+    <button>◄</button>
+    <button id="play-btn" class="player-btn">▶</button>
+    <button>►</button>
+  </div>
+
+  
+  <img src="希貓.png" alt="希貓" class="sticker-cross-config">
+</div> <!-- 結束 .window--config -->
+
+<!-- 中上：粉紅商品頁 -->
+<div class="window window--product">
+  <div class="title">推し</div>
+  <img src="https://via.placeholder.com/200x160/ffc0d7/000000?text=Pink+Hat" alt="">
+  <p><h4>深坑推角⤵︎</h4>
+    <ul>
+      銀魂｜坂田銀時、沖田総悟、猿飛あやめ<br>
+      ハイキュー‼︎｜木兎光太郎<br>
+      ヒロアカ｜緑谷出久<br>
+    </ul>
+    <h4>拒拆⤵︎</h4>
+    <ul>
+      兔赤、月山、沖神、里漢cb
+    </ul>
+    <h4>嗑一點⤵︎</h4>
+    <ul>
+      出茶、土三、銀猿、銀土
+    </ul>
+    <h4>雷貼臉⤵︎</h4>
+    <ul>
+      銀右、銀神<br>
+      通常會自避雷，但銀神看到對家會直接封鎖
+    </ul>
+</div>
+
+      <!-- 右：聊天室 -->
+      <div class="window window--chat">
+        <div class="title">チャット</div>
+        <div class="chatbox">
+          <p><b>Uki</b> : 你是不是又偷吃我的布丁???</p>
+          <p><b>Gintoki</b> : 沒有吧，好像是他自己走到我嘴裡的</p>
+          <p><b>Uki</b> : 我要報警</p>
+        </div>
+      </div>
+
+      <!-- 中下：備忘便條 -->
+      <div class="window window--note">
+        <div class="title">ご注意ください‼︎</div>
+        <p>
+          - 預防性封鎖<br>
+          - 應該→因該<br>
+          - 不要→補藥<br>
+          - 有鏽→有繡<br>
+          - 徽章→吧唧<br>
+          - 再在、已以...<br>
+          - ‼︎使用辱女髒話‼︎<br>
+          - 毛很多，退移都隨心情不告知<br>
+          - threads🔔off，回覆看運氣(我會盡量互動的TT)</p>
+      </div>
+
+      <!-- 底部：桌面捷徑（示意） -->
+      <ul class="dock">
+  <li>
+    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4c1.png" alt="相簿" title="相簿">
+    <div class="dock-label">相簿</div>
+  </li>
+  <li>
+    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4c1.png" alt="聯絡方式" title="聯絡方式">
+    <div class="dock-label">聯絡方式</div>
+  </li>
+  <li>
+    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4c1.png" alt="夢向" title="夢向">
+    <div class="dock-label">夢向</div>
+  </li>
+</ul>
+
+    </div>
+  </div>
+  <audio id="desk-music" src="music.mp3" preload="auto"></audio>
+  <script>
+const playBtn  = document.getElementById('play-btn');
+const player   = document.getElementById('desk-music');
+const progress = document.getElementById('progress');
+
+/* 點按鈕播放 / 暫停 */
+playBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  if (player.paused){
+    player.play();
+    playBtn.textContent = '⏸';
+  }else{
+    player.pause();
+    playBtn.textContent = '▶';
+  }
+});
+
+/* 同步進度條位置 */
+player.addEventListener('timeupdate', () => {
+  if (player.duration){
+    progress.value = player.currentTime / player.duration * 100;
+  }
+});
+
+/* 拖曳進度條跳播 */
+progress.addEventListener('input', () => {
+  if (player.duration){
+    player.currentTime = progress.value / 100 * player.duration;
+  }
+});
+
+/* 播放結束自動還原圖示與進度條 */
+player.addEventListener('ended', () => {
+  playBtn.textContent = '▶';
+  progress.value = 0;
+});
+</script>
+</body>
+</html>
